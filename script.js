@@ -21,3 +21,19 @@ const ativo = document.body.classList.contains("alto-contraste");
 btnContraste.setAttribute("aria-pressed", ativo);
 
 )};
+//função aumentar o texto
+btnAumentar .addEventListener("click", ()=>){
+   if (tamanhoAtualFonte<150){
+   tamanhoAtualFonte += 10; 
+   document.documentElement.style.fontsize = `${tamanhoAtualFonte}%` 
+}
+});
+
+//função diminuir texto
+
+btnDiminuir.addEventListener("click",()=>{
+   if(tamanhoAtualFonte>90){
+      tamanhoAutoFonte -=10;
+      document.documentElement.style.fontSize = `${tamanhoAtualFonte}%` 
+   }
+})
