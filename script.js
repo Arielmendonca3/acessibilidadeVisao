@@ -1,63 +1,66 @@
-document.addEventListener("DOMContentLoaded", () => {
-    // Captura dos elementos do HTML
-    const btnContraste = document.getElementById("btn-contraste");
-    const btnAumentar = document.getElementById("btn-aumentar-texto");
-    const btnDiminuir = document.getElementById("btn-diminuir-texto");
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página Acessível com Preferências Salvas</title>
+    
+    <!-- CSS mínimo para demonstração -->
+    <style>
+        :root {
+            font-size: 100%;
+        }
 
-    const html = document.documentElement;
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffffff;
+            color: #333333;
+            margin: 0;
+            padding: 20px;
+            transition: background-color 0.3s, color 0.3s;
+        }
 
-    // 1. CARREGAR PREFERÊNCIAS SALVAS (AO ABRIR A PÁGINA)
-    const contrasteSalvo = localStorage.getItem("altoContraste");
-    const fonteSalva = localStorage.getItem("tamanhoFonte");
+        /* Estilo para Alto Contraste */
+        body.alto-contraste {
+            background-color: #000000;
+            color: #ffff00; /* Amarelo em fundo preto */
+        }
 
-    // Aplica o contraste salvo (se existir)
-    if (contrasteSalvo === "true") {
-        document.body.classList.add("alto-contraste");
-        if (btnContraste) btnContraste.setAttribute("aria-pressed", "true");
-    }
+        .barra-acessibilidade {
+            margin-bottom: 20px;
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+        }
 
-    // Aplica o tamanho de fonte salvo (se existir)
-    let tamanhoAtualFonte = fonteSalva ? parseInt(fonteSalva) : 100;
-    html.style.fontSize = `${tamanhoAtualFonte}%`;
+        button {
+            padding: 8px 12px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-right: 5px;
+        }
 
-    // 2. FUNÇÕES DE INTERAÇÃO E SALVAMENTO
+        body.alto-contraste button {
+            background-color: #000;
+            color: #ffff00;
+            border: 2px solid #ffff00;
+        }
+    </style>
+</head>
+<body>
 
-    // Alternar Alto Contraste
-    if (btnContraste) {
-        btnContraste.addEventListener("click", () => {
-            document.body.classList.toggle("alto-contraste");
+    <!-- BARRA DE ACESSIBILIDADE COM OS IDs CORRESPONDENTES AO SEU SCRIPT -->
+    <nav class="barra-acessibilidade" aria-label="Controles de acessibilidade">
+        <button id="btn-diminuir-texto" aria-label="Diminuir tamanho do texto">A-</button>
+        <button id="btn-aumentar-texto" aria-label="Aumentar tamanho do texto">A+</button>
+        <button id="btn-contraste" aria-label="Alternar modo de alto contraste" aria-pressed="false">Alto Contraste</button>
+    </nav>
 
-            const ativo = document.body.classList.contains("alto-contraste");
-            btnContraste.setAttribute("aria-pressed", ativo);
+    <main>
+        <h1>Título da Página</h1>
+        <p>Este texto se adapta ao tamanho escolhido e guarda as preferências no navegador mesmo ao atualizar a página.</p>
+    </main>
 
-            // Salva no localStorage (true ou false)
-            localStorage.setItem("altoContraste", ativo);
-        });
-    }
-
-    // Aumentar o Texto
-    if (btnAumentar) {
-        btnAumentar.addEventListener("click", () => {
-            if (tamanhoAtualFonte < 150) {
-                tamanhoAtualFonte += 10;
-                html.style.fontSize = `${tamanhoAtualFonte}%`;
-
-                // Salva o novo tamanho no localStorage
-                localStorage.setItem("tamanhoFonte", tamanhoAtualFonte);
-            }
-        });
-    }
-
-    // Diminuir o Texto
-    if (btnDiminuir) {
-        btnDiminuir.addEventListener("click", () => {
-            if (tamanhoAtualFonte > 90) {
-                tamanhoAtualFonte -= 10;
-                html.style.fontSize = `${tamanhoAtualFonte}%`;
-
-                // Salva o novo tamanho no localStorage
-                localStorage.setItem("tamanhoFonte", tamanhoAtualFonte);
-            }
-        });
-    }
-});
+    <!-- INCLUSÃO DO SEU SCRIPT JAVASCRIPT -->
+    <script src="script.js"></script>
+</body>
+</html>
